@@ -1,0 +1,110 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Help us improve Job Tracker</title>
+<meta name="robots" content="noindex">
+<link rel="icon" href="data:image/svg+xml,%3Csvg xmlns=%27http://www.w3.org/2000/svg%27 viewBox=%270 0 40 40%27%3E%3Crect width=%2740%27 height=%2740%27 rx=%279%27 fill=%27%232a251f%27/%3E%3Cg fill=%27%23e8a33d%27%3E%3Crect x=%2710.57%27 y=%2711.43%27 width=%275.14%27 height=%2717.14%27 rx=%271.71%27/%3E%3Crect x=%2717.43%27 y=%2711.43%27 width=%275.14%27 height=%2711.14%27 rx=%271.71%27/%3E%3Crect x=%2724.29%27 y=%2711.43%27 width=%275.14%27 height=%2714.57%27 rx=%271.71%27/%3E%3C/g%3E%3C/svg%3E">
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Instrument+Sans:wght@500;600;700&display=swap">
+<script defer src="https://cloud.umami.is/script.js" data-website-id="328e350f-b770-4529-9500-92b514123a6c"></script>
+<style>
+  * { box-sizing: border-box; margin: 0; }
+  body {
+    background: #1b1815; color: #f2ece2;
+    font: 17px/1.55 "Instrument Sans", ui-sans-serif, system-ui, sans-serif;
+    font-synthesis: none;
+  }
+  .shell { max-width: 640px; margin: 0 auto; padding: 56px 24px 80px; }
+
+  .brand { display: flex; align-items: center; gap: 13px; margin-bottom: 36px; }
+  .mark { display: flex; flex: 0 0 auto; }
+  .brand b { font-size: 15px; font-weight: 700; letter-spacing: .14em; text-transform: uppercase; }
+
+  .intro h1 { font-size: 32px; font-weight: 600; letter-spacing: -0.015em; line-height: 1.2; text-wrap: balance; }
+  .intro p { margin-top: 12px; color: #b3a996; max-width: 52ch; text-wrap: pretty; }
+
+  form { margin-top: 36px; }
+  .q { display: block; font-size: 14px; font-weight: 700; letter-spacing: .09em; text-transform: uppercase; color: #e8a33d; }
+
+  textarea {
+    display: block; margin-top: 14px; width: 100%; min-height: 132px; resize: vertical;
+    border: 1px solid #3a332c; border-radius: 12px; background: #262220;
+    color: #f2ece2; padding: 13px 16px; font: inherit; font-size: 16px;
+  }
+  textarea::placeholder { color: #8f867a; }
+  textarea:focus-visible { outline: 2px solid #e8a33d; outline-offset: 1px; border-color: #e8a33d; }
+
+  .send {
+    margin-top: 24px; padding: 14px 28px; border: 0; border-radius: 12px;
+    background: #e8a33d; color: #1b1815; font: inherit; font-size: 17px; font-weight: 700;
+    cursor: pointer;
+  }
+  .send:hover:not(:disabled) { background: #f0b254; }
+  .send:disabled { opacity: .5; cursor: default; }
+
+  .note { margin-top: 28px; font-size: 14px; color: #8f867a; max-width: 56ch; }
+  .note a { color: #b3a996; }
+
+  .thanks { display: none; margin-top: 16px; }
+  .thanks h2 { font-size: 26px; letter-spacing: -0.01em; }
+  body[data-sent="true"] .intro,
+  body[data-sent="true"] form { display: none; }
+  body[data-sent="true"] .thanks { display: block; }
+</style>
+</head>
+<body>
+  <div class="shell">
+    <div class="brand">
+      <span class="mark" aria-hidden="true"><svg width="40" height="40" viewBox="0 0 40 40" xmlns="http://www.w3.org/2000/svg"><rect width="40" height="40" rx="9" fill="#2a251f"/><g fill="#e8a33d"><rect x="10.57" y="11.43" width="5.14" height="17.14" rx="1.71"/><rect x="17.43" y="11.43" width="5.14" height="11.14" rx="1.71"/><rect x="24.29" y="11.43" width="5.14" height="14.57" rx="1.71"/></g></svg></span>
+      <b>Job Tracker</b>
+    </div>
+
+    <div class="intro">
+      <h1>Help us improve Job Tracker</h1>
+      <p>Thanks for the honest rating. Tell us what gets in the way — it takes half a minute.</p>
+    </div>
+
+    <form id="feedback">
+      <label class="q" for="better">What should be better?</label>
+      <textarea id="better" name="better" placeholder="For example: a site where the details didn't fill in, or a feature you missed"></textarea>
+
+      <button class="send" type="submit" disabled>Send feedback</button>
+    </form>
+
+    <div class="thanks" role="status">
+      <h2>Thank you. Every answer counts.</h2>
+    </div>
+
+    <p class="note">Prefer a conversation? <a href="https://github.com/anastasialekasova-hub/job-tracker-pages/issues" target="_blank" rel="noopener">Open an issue on GitHub</a>.</p>
+  </div>
+
+<script>
+  // Responses land in the Google Form "Job Tracker feedback" (one field).
+  // FORM_ID and the entry id are filled in when the form is created;
+  // while they are empty, submit only shows the thank-you state.
+  var FORM_ID = '';
+  var ENTRY_BETTER = '';
+
+  var field = document.getElementById('better');
+  var button = document.querySelector('#feedback .send');
+  field.addEventListener('input', function () {
+    button.disabled = field.value.trim() === '';
+  });
+
+  document.getElementById('feedback').addEventListener('submit', function (e) {
+    e.preventDefault();
+    var better = field.value.trim();
+    if (!better) return;
+
+    if (FORM_ID && ENTRY_BETTER) {
+      var data = new FormData();
+      data.append(ENTRY_BETTER, better);
+      fetch('https://docs.google.com/forms/d/e/' + FORM_ID + '/formResponse',
+        { method: 'POST', mode: 'no-cors', body: data }).catch(function () {});
+    }
+    document.body.dataset.sent = 'true';
+  });
+</script>
+</body>
+</html>
