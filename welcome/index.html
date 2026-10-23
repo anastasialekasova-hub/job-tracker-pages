@@ -15,33 +15,46 @@
     font: 17px/1.55 "Instrument Sans", ui-sans-serif, system-ui, sans-serif;
     font-synthesis: none;
   }
-  .shell { max-width: 780px; margin: 0 auto; padding: 32px 24px 80px; }
+  .shell { max-width: 780px; margin: 0 auto; padding: 28px 24px 72px; }
 
-  .brand { display: flex; align-items: center; gap: 13px; margin-bottom: 26px; }
+  .brand { display: flex; align-items: center; gap: 13px; margin-bottom: 20px; }
   .mark { display: flex; flex: 0 0 auto; }
   .brand b { font-size: 15px; font-weight: 700; letter-spacing: .14em; text-transform: uppercase; }
 
-  h1 { font-size: 31px; line-height: 1.16; letter-spacing: -0.02em; text-wrap: balance; }
+  h1 { font-size: 30px; line-height: 1.16; letter-spacing: -0.02em; text-wrap: balance; }
   h1 em { font-style: normal; color: #e8a33d; }
-  .lede { margin-top: 12px; font-size: 18px; color: #b3a996; max-width: 56ch; }
+  .lede { margin-top: 10px; font-size: 18px; color: #b3a996; }
 
-  .step { margin-top: 34px; }
-  .step h2 { font-size: 24px; letter-spacing: -0.01em; }
-  .step > p { margin-top: 8px; color: #b3a996; max-width: 58ch; }
+  .step { margin-top: 28px; }
+  .step h2 { font-size: 22px; line-height: 1.25; letter-spacing: -0.01em; }
+  .step h2 + h2 { margin-top: 10px; }
+  .step p { margin-top: 8px; color: #b3a996; max-width: 58ch; }
 
-  /* Annotated screenshots break out of the text column so the UI reads big. */
+  /* Scaled-down browser windows on a contrasting backdrop, so nobody tries to click them. */
   .shot {
-    position: relative; margin-top: 16px; border-radius: 14px; overflow: hidden;
+    margin-top: 14px; border-radius: 14px; overflow: hidden;
     border: 1px solid #3a332c; box-shadow: 0 18px 50px rgba(0,0,0,.4); background: #262220;
-    width: min(94vw, 1000px);
-    left: 50%; transform: translateX(-50%);
   }
   .shot img { width: 100%; height: auto; display: block; }
 
-  .trust { margin-top: 40px; color: #b3a996; font-size: 15px; }
+  .trust { margin-top: 36px; color: #b3a996; font-size: 15px; }
 
-  footer { margin-top: 56px; padding-top: 24px; border-top: 1px solid #3a332c; font-size: 14px; color: #8f867a; }
+  footer { margin-top: 48px; padding-top: 24px; border-top: 1px solid #3a332c; font-size: 14px; color: #8f867a; }
   footer a { color: #b3a996; }
+
+  /* Wide screens: step text on the left, picture on the right,
+     so the first picture fits on screen and the second one peeks in. */
+  @media (min-width: 1000px) {
+    .shell { max-width: 1040px; }
+    .step { display: grid; grid-template-columns: 280px 1fr; gap: 40px; align-items: start; }
+    .shot { margin-top: 0; }
+  }
+  @media (max-width: 520px) {
+    .shell { padding: 24px 16px 56px; }
+    h1 { font-size: 26px; }
+    .lede { font-size: 17px; }
+    .step h2 { font-size: 20px; }
+  }
 </style>
 </head>
 <body>
@@ -55,32 +68,29 @@
     <p class="lede">Chrome hides new extensions behind the puzzle icon, so pin Job Tracker first.</p>
 
     <section class="step">
+      <div class="txt">
+        <h2>1. Click the puzzle icon</h2>
+        <h2>2. Pin Job Tracker</h2>
+      </div>
       <div class="shot">
-        <img src="step-1-pin.png" alt="Chrome toolbar with the Extensions menu open: 1 — click the puzzle icon, 2 — click the pin next to Job Tracker" width="1998" height="730">
+        <img src="steps-1-2-pin.png" alt="Chrome on google.com with the Extensions menu open: 1 — the puzzle icon, 2 — the pin next to Job Tracker" width="2240" height="1120">
       </div>
     </section>
 
     <section class="step">
-      <h2>Open a job posting and click the icon</h2>
-      <p>Job Tracker fills in what it finds on the page: job title, company, location and salary. Check the fields and click Save job.</p>
-      <p>The first time you click the icon, you’ll see a short “How it works” screen. Click Got it to open the form.</p>
-      <div class="shot">
-        <img src="step-2-save-job.png" alt="A job posting with the Job Tracker popup open: 3 — click the Job Tracker icon, 4 — check the fields and click Save job" width="2000" height="1176">
+      <div class="txt">
+        <h2>3. Open a job posting and click the Job Tracker icon</h2>
+        <p>On your first click, a short “How it works” screen opens. Click Got it, then check the details and click Save job.</p>
       </div>
-    </section>
-
-    <section class="step">
-      <h2>Saving from search results? Right-click the link</h2>
-      <p>Choose Save link to Job Tracker. When the job is saved, a check mark briefly appears on the icon.</p>
       <div class="shot">
-        <img src="step-3-right-click.png" alt="Job search results with a link’s right-click menu open: 5 — choose Save link to Job Tracker" width="2000" height="1020">
+        <img src="step-3-click-icon.png" alt="A job posting in Chrome: 3 — the pinned Job Tracker icon, with the Job Tracker form open below it" width="2240" height="1200">
       </div>
     </section>
 
     <p class="trust">No account needed. Your jobs are stored only in this browser.</p>
 
     <footer>
-      Questions or a bug? <a href="https://github.com/anastasialekasova-hub/job-tracker-pages/issues" target="_blank" rel="noopener">Open an issue on GitHub</a>. · <a href="https://pinwisp.com/job-tracker/privacy/" target="_blank" rel="noopener">Privacy policy</a>
+      Questions or a bug? <a href="../feedback/">Send us a note</a> · <a href="https://pinwisp.com/job-tracker/privacy/" target="_blank" rel="noopener">Privacy policy</a>
     </footer>
   </div>
 </body>
